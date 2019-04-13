@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+  php:
+    build:
+      context: ./docker/php
+    ports:
+      - 9000:9000
+    volumes:
+      - ./:/srv/www/vk_twitter_api
+      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      APP_ENV: ${APP_ENV}
+
+  nginx:
+    image: nginx:1.13.8
+    ports:
+      - 80:80
+    volumes:
+      - ./:/srv/www/vk_twitter_api
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    depends_on:
+      - php
+    volumes:
+      - ./docker/mysql/sql-scripts:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  redis:
+    image: redis:5.0.4
+    depends_on:
+      - php
+    volumes:
+      - ./docker/redis/data:/data/
+
+  memcached:
+    image: memcached:1.5.12
