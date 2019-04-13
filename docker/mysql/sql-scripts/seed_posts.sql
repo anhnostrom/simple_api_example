@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `user_name` varchar(100) DEFAULT NULL,
+  `user_name` varchar(100) NOT NULL DEFAULT '',
   `text` varchar(280) NOT NULL DEFAULT '',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
