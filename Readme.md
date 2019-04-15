@@ -36,10 +36,12 @@ mysql -udummy -pdummy dummy
 
 **posts** - список постов пользователей.
 ## Примеры запросов к api
+Приложение поднято на ip 104.131.189.54 (America NY, 1 CPU, 1 GB Memory, 20 GB Disk)
+
 Создание поста от лица юзера с id 1
 ```
 curl -X POST \
-  http://127.0.0.1/v1/createPost \
+  http://104.131.189.54/v1/createPost \
   -H 'Content-Type: application/json' \
   -H 'x-access-token: $2y$10$8kU8uy.EFLcM.HRG44jKpuPY0xgknbEs1P6mr7JYOIl6olEFt9Le.' \
   -d '{"text":"Message from user#1"}'
@@ -47,20 +49,20 @@ curl -X POST \
 
 Получение постов юзера с id 1
 ```
-curl -X GET 'http://127.0.0.1/v1/getUserTimeline?user_id=1'
+curl -X GET 'http://104.131.189.54/v1/getUserTimeline?user_id=1'
 ```
 
 Удаление поста по post_id от лица пользователя с id 1
 ```
 curl -X POST \
-  'http://127.0.0.1/v1/deletePost?post_id=5' \
+  'http://104.131.189.54/v1/deletePost?post_id=5' \
   -H 'x-access-token: $2y$10$8kU8uy.EFLcM.HRG44jKpuPY0xgknbEs1P6mr7JYOIl6olEFt9Le.'
 ```
 
 Редактирование поста от лица пользователя с id 1
 ```
 curl -X POST \
-  http://127.0.0.1/v1/updatePost \
+  http://104.131.189.54/v1/updatePost \
   -H 'Content-Type: application/json' \
   -H 'x-access-token: $2y$10$8kU8uy.EFLcM.HRG44jKpuPY0xgknbEs1P6mr7JYOIl6olEFt9Le.' \
   -d '{"id":2, "text":"i change you"}'
@@ -69,19 +71,19 @@ curl -X POST \
 Получение постов интересных пользователей от лица пользователя с id 2 (подписан на пользователя с id 1)
 ```
 curl -X GET \
-  'http://127.0.0.1/v1/getHomeTimeline?limit=3&offset=3' \
+  'http://104.131.189.54/v1/getHomeTimeline?limit=3&offset=3' \
   -H 'x-access-token: $2y$10$gnFd538LIfPklT8Rg09Nkuu8zoZX/pXmj8Nv/SnD.Q6HRar3m6AaS'
 ```
 
 Получение поста по id
 ```
-curl -X GET 'http://127.0.0.1/v1/getPost?post_id=9'
+curl -X GET 'http://104.131.189.54/v1/getPost?post_id=9'
 ```
 
 Создание поста от лица пользователя с id 2
 ```
 curl -X POST \
-  http://127.0.0.1/v1/createPost \
+  http://104.131.189.54/v1/createPost \
   -H 'Content-Type: application/json' \
   -H 'x-access-token: $2y$10$gnFd538LIfPklT8Rg09Nkuu8zoZX/pXmj8Nv/SnD.Q6HRar3m6AaS' \
   -d '{"text":"Сообщение от второго пользователя"}'
@@ -90,7 +92,7 @@ curl -X POST \
 Получение постов интересных пользователей от лица пользователя с id 1 (подписан на пользователя с id 2)
 ```
 curl -X GET \
-  http://127.0.0.1/v1/getHomeTimeline \
+  http://104.131.189.54/v1/getHomeTimeline \
   -H 'x-access-token: $2y$10$8kU8uy.EFLcM.HRG44jKpuPY0xgknbEs1P6mr7JYOIl6olEFt9Le.'
 ```
 
